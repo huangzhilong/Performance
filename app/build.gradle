@@ -1,3 +1,5 @@
+import com.yy.thread.plugin.TestPlugin
+
 apply plugin: 'com.android.application'
 
 android {
@@ -26,4 +28,23 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation project(":framework")
+}
+
+//插件使用
+apply plugin: "com.yy.thread"
+
+thread_manager {
+
+    enable = true
+
+    contanierPlugins {
+
+        searchThread {
+            plugin = new TestPlugin()
+        }
+
+        replaceThread {
+            plugin = new TestPlugin()
+        }
+    }
 }
