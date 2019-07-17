@@ -1,0 +1,20 @@
+apply plugin: 'java'
+apply plugin: 'groovy'
+
+repositories {
+    maven { url 'http://repo.yypm.com:8181/nexus/content/groups/public' }
+}
+
+dependencies {
+    //    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    compileOnly gradleApi()//gradle sdk
+    compileOnly localGroovy()//groovy sdk
+
+    compile 'com.android.tools.build:gradle:3.2.1'
+    compile 'org.javassist:javassist:3.21.0-GA'
+}
+
+compileJava {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
