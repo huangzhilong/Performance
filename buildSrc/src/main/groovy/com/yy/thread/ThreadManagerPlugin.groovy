@@ -18,6 +18,6 @@ class ThreadManagerPlugin implements Plugin<Project>{
         println(TAG + "  start ThreadManagerPlugin----------")
         //注册ThreadTransform
         def android = project.extensions.getByType(AppExtension)
-        android.registerTransform(new ThreadTransform(project))
+       // android.registerTransform(new ThreadTransform(project))
     }
 }

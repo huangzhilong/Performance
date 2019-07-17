@@ -4,6 +4,9 @@ import android.os.HandlerThread;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 
+import com.yy.framework.DefaultThreadFactory;
+import com.yy.framework.YYTaskExecutor;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -28,7 +31,8 @@ public class TestThread {
 
     private ExecutorService mExecutorService = new ThreadPoolExecutor(10, 20,
             0L, TimeUnit.MILLISECONDS,
-            new LinkedBlockingQueue<Runnable>());
+            new LinkedBlockingQueue<Runnable>(), new DefaultThreadFactory("Test1-",
+            YYTaskExecutor.THREAD_PRIORITY_BACKGROUND));
 
 
 
@@ -50,8 +54,22 @@ public class TestThread {
 
         mMyThreadPoolExecutor = new MyThreadPoolExecutor(10, 20,
                 0L, TimeUnit.MILLISECONDS,
-                new LinkedBlockingQueue<Runnable>());
+                new LinkedBlockingQueue<Runnable>(),
+                new DefaultThreadFactory("Test2-", YYTaskExecutor.THREAD_PRIORITY_BACKGROUND));
 
-        mExecutors = Executors.newFixedThreadPool(10);
+        mExecutors = Executors.newFixedThreadPool(10,
+                new DefaultThreadFactory("Test3-", YYTaskExecutor.THREAD_PRIORITY_BACKGROUND));
+
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                Log.i("Thread", "!!!!!!!!!!!!!!");
+            }
+        };
+        for (int i = 0; i < 20; i++) {
+            mExecutors.execute(runnable);
+            mMyThreadPoolExecutor.execute(runnable);
+            mExecutorService.execute(runnable);
+        }
     }
 }

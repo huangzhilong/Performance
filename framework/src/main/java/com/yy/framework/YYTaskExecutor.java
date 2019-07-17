@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit;
 
 public class YYTaskExecutor {
 
-    static final int THREAD_PRIORITY_BACKGROUND = Process.THREAD_PRIORITY_BACKGROUND;
+    public static final int THREAD_PRIORITY_BACKGROUND = Process.THREAD_PRIORITY_BACKGROUND;
 
     //简单线程数量设置
     private final static int MIN_THREADPOOL_SIZE = 10;
