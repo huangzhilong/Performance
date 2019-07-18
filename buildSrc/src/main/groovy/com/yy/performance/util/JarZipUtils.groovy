@@ -1,4 +1,4 @@
-package com.yy.performance.transform
+package com.yy.performance.util
 
 import java.util.zip.ZipFile
 
@@ -8,6 +8,8 @@ import java.util.zip.ZipFile
  */
 
 class JarZipUtils {
+
+    private final static String TAG = "JarZipUtils"
 
     /**
      * 解压jar包
@@ -23,10 +25,9 @@ class JarZipUtils {
                 return null
             }
             AntBuilder antBuilder = new AntBuilder()
-            println("unzipJarZip   " + tmpDir)
             antBuilder.unzip(src: zipFilePath, dest: tmpDir, overwrite: true)
         } catch (Exception e) {
-
+            LogUtil.log(TAG, "unzipJarZip error: %s", zipFilePath)
         } finally {
             if (file != null) {
                 file.close()

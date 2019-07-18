@@ -1,12 +1,9 @@
-package com.yy.thread.plugin.extend
-
-import com.yy.thread.plugin.IBasePlugin
-
+package com.yy.performance.plugin.extend
 /**
  * Created by huangzhilong on 19/6/19
  */
 
-class PluginExtend <T extends IBasePlugin> {
+class PluginExtend <T extends com.yy.performance.plugin.IBasePlugin> {
 
     public String name
 

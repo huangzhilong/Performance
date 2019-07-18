@@ -1,5 +1,5 @@
 
-package com.yy.thread.util
+package com.yy.performance.util
 
 /**
  * Created by huangzhilong on 19/7/17.
@@ -7,7 +7,7 @@ package com.yy.thread.util
 
 class LogUtil {
 
-    public static log(String tag, String format, Object... argv) {
+    static log(String tag, String format, Object... argv) {
         println("[${tag}]\t${String.format(format, argv)}")
     }
 }
