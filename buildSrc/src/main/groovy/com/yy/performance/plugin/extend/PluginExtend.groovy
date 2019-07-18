@@ -1,9 +1,12 @@
 package com.yy.performance.plugin.extend
+
+import com.yy.performance.plugin.AbsBasePlugin
+
 /**
  * Created by huangzhilong on 19/6/19
  */
 
-class PluginExtend <T extends com.yy.performance.plugin.IBasePlugin> {
+class PluginExtend <T extends AbsBasePlugin> {
 
     public String name
 

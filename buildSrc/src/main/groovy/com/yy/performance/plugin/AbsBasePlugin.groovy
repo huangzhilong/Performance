@@ -6,15 +6,19 @@ package com.yy.performance.plugin
  * 一个transform可对应多个IBasePlugin
  */
 
-interface IBasePlugin {
+abstract class AbsBasePlugin {
 
     /**
      * 开始执行之前
      */
-    void onBeforeTransform()
+    void onBeforeTransform() {
+
+    }
 
     /**
      * transforms运行结束
      */
-    void onFinallyTransform()
+    void onFinallyTransform() {
+
+    }
 }

@@ -1,6 +1,7 @@
 package com.yy.performance
 
-import com.yy.performance.plugin.IBasePlugin
+import com.android.build.gradle.AppExtension
+import com.yy.performance.plugin.AbsBasePlugin
 import com.yy.performance.plugin.extend.PluginExtend
 import com.yy.performance.plugin.extend.PluginExtendContainer
 import com.yy.performance.util.LogUtil
@@ -15,7 +16,9 @@ class PerformancePlugin implements Plugin<Project>{
 
     private final static String TAG = "PerformancePlugin"
 
-    private final static String PLUGIN_NAME = "thread_manager"
+    private final static String PLUGIN_NAME = "performance_manager"
+
+    private PerformanceTransform mTransform
 
     @Override
     void apply(Project project) {
@@ -23,17 +26,18 @@ class PerformancePlugin implements Plugin<Project>{
         LogUtil.log(TAG," ------ start ThreadManagerPlugin ----------")
         createExtend(project)
 
-        //要放到这里面读取
-        project.afterEvaluate {
-            List<IBasePlugin> plugins = readThreadExtend(project)
-            if (plugins == null || plugins.size() == 0) {
-                LogUtil.log(TAG, "not plugin end ThreadManagerPlugin")
-                return
-            }
+        if (project.hasProperty(PLUGIN_NAME)) {
             //注册PerformanceTransform
+            LogUtil.log(TAG, "registerTransform PerformancePlugin")
             def android = project.extensions.getByType(AppExtension)
-            PerformanceTransform transform = new PerformanceTransform(project, plugins)
-            android.registerTransform(transform)
+            mTransform = new PerformanceTransform(project)
+            android.registerTransform(mTransform)
+
+            //要放到这里面读取,transform放在里面会register失败
+            project.afterEvaluate {
+                List<AbsBasePlugin> plugins = readPluginExtend(project)
+                mTransform.setPluginList(plugins)
+            }
         }
     }
 
@@ -41,20 +45,16 @@ class PerformancePlugin implements Plugin<Project>{
         project.extensions.create(PLUGIN_NAME, PluginExtendContainer, project)
     }
 
-    private List<com.yy.performance.plugin.IBasePlugin> readThreadExtend(Project project) {
-        if (!project.hasProperty(PLUGIN_NAME)) {
-            LogUtil.log(TAG, "readThreadExtend not plugin!!!")
-            return null
-        }
+    private List<AbsBasePlugin> readPluginExtend(Project project) {
         PluginExtendContainer container = project[PLUGIN_NAME]
         if (!container.enable) {
-            LogUtil.log(TAG, "readThreadExtend plugin not enable!!!")
+            LogUtil.log(TAG, "readPluginExtend plugin not enable!!!")
             return null
         }
-        List<com.yy.performance.plugin.IBasePlugin> pluginList = new ArrayList<>()
+        List<AbsBasePlugin> pluginList = new ArrayList<>()
         container.plugins.each { PluginExtend extend ->
             if (extend.plugin != null) {
-                LogUtil.log(TAG, "readThreadExtend plugin name: %s", extend.name)
+                LogUtil.log(TAG, "readPluginExtend plugin name: %s", extend.name)
                 pluginList.add(extend.plugin)
             }
         }

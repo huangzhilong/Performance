@@ -1,5 +1,6 @@
 package com.yy.performance.plugin.extend
 
+import com.yy.performance.plugin.AbsBasePlugin
 import org.gradle.api.NamedDomainObjectContainer
 import org.gradle.api.Project
 import org.gradle.util.ConfigureUtil
@@ -15,7 +16,7 @@ class PluginExtendContainer {
      */
     boolean enable
 
-    NamedDomainObjectContainer<PluginExtend<com.yy.performance.plugin.IBasePlugin>> plugins
+    NamedDomainObjectContainer<PluginExtend<AbsBasePlugin>> plugins
 
     PluginExtendContainer(Project project) {
         plugins = project.container(PluginExtend)
