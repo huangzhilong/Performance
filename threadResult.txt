@@ -1,0 +1,40 @@
+
+================== Search Result =====================
+
+------------------ java.util.concurrent.ThreadPoolExecutor ----------------
+className:  android.support.v4.content.ModernAsyncTask  method: java.util.concurrent.ThreadPoolExecutor(int,int,long,java.util.concurrent.TimeUnit,java.util.concurrent.BlockingQueue,java.util.concurrent.ThreadFactory)  lineNumber: 75
+className:  okhttp3.ConnectionPool  method: java.util.concurrent.ThreadPoolExecutor(int,int,long,java.util.concurrent.TimeUnit,java.util.concurrent.BlockingQueue,java.util.concurrent.ThreadFactory)  lineNumber: 52
+className:  okhttp3.Dispatcher  method: java.util.concurrent.ThreadPoolExecutor(int,int,long,java.util.concurrent.TimeUnit,java.util.concurrent.BlockingQueue,java.util.concurrent.ThreadFactory)  lineNumber: 66
+className:  com.yy.hago.thread.MainActivity  method: java.util.concurrent.ScheduledThreadPoolExecutor(int,java.util.concurrent.ThreadFactory)  lineNumber: 33
+className:  com.yy.framework.YYTaskExecutor  method: java.util.concurrent.ThreadPoolExecutor(int,int,long,java.util.concurrent.TimeUnit,java.util.concurrent.BlockingQueue,java.util.concurrent.ThreadFactory)  lineNumber: 24
+className:  com.yy.framework.YYTaskExecutor  method: java.util.concurrent.ScheduledThreadPoolExecutor(int,java.util.concurrent.ThreadFactory)  lineNumber: 30
+className:  okhttp3.internal.cache.DiskLruCache  method: java.util.concurrent.ThreadPoolExecutor(int,int,long,java.util.concurrent.TimeUnit,java.util.concurrent.BlockingQueue,java.util.concurrent.ThreadFactory)  lineNumber: 270
+className:  com.yy.hago.thread.TestThread  method: java.util.concurrent.ThreadPoolExecutor(int,int,long,java.util.concurrent.TimeUnit,java.util.concurrent.BlockingQueue,java.util.concurrent.ThreadFactory)  lineNumber: 32
+className:  com.yy.hago.thread.TestThread  method: com.yy.hago.thread.MyThreadPoolExecutor(int,int,long,java.util.concurrent.TimeUnit,java.util.concurrent.BlockingQueue,java.util.concurrent.ThreadFactory)  lineNumber: 55
+className:  okhttp3.internal.http2.Http2Connection  method: java.util.concurrent.ThreadPoolExecutor(int,int,long,java.util.concurrent.TimeUnit,java.util.concurrent.BlockingQueue,java.util.concurrent.ThreadFactory)  lineNumber: 150
+className:  okhttp3.internal.http2.Http2Connection  method: java.util.concurrent.ThreadPoolExecutor(int,int,long,java.util.concurrent.TimeUnit,java.util.concurrent.BlockingQueue,java.util.concurrent.ThreadFactory)  lineNumber: 71
+className:  okhttp3.internal.ws.RealWebSocket  method: java.util.concurrent.ScheduledThreadPoolExecutor(int,java.util.concurrent.ThreadFactory)  lineNumber: 245
+------------------ android.os.HandlerThread ----------------
+className:  android.support.v4.app.FrameMetricsAggregator$FrameMetricsApi24Impl  method: android.os.HandlerThread(java.lang.String)  lineNumber: 415
+className:  android.support.v4.app.NotificationManagerCompat$SideChannelManager  method: android.os.HandlerThread(java.lang.String)  lineNumber: 324
+className:  android.support.v4.provider.SelfDestructiveThread  method: android.os.HandlerThread(java.lang.String,int)  lineNumber: 109
+className:  com.yy.hago.thread.TestThread  method: android.os.HandlerThread(java.lang.String)  lineNumber: 52
+------------------ java.lang.Thread ----------------
+className:  android.support.v4.content.ModernAsyncTask$1  method: java.lang.Thread(java.lang.Runnable,java.lang.String)  lineNumber: 65
+className:  android.support.v4.view.AsyncLayoutInflater$InflateThread  method: android.support.v4.view.AsyncLayoutInflater$InflateThread()  lineNumber: 163
+className:  android.support.v4.app.FrameMetricsAggregator$FrameMetricsApi24Impl  method: android.os.HandlerThread(java.lang.String)  lineNumber: 415
+className:  android.support.v4.app.NotificationManagerCompat$SideChannelManager  method: android.os.HandlerThread(java.lang.String)  lineNumber: 324
+className:  android.support.v4.provider.SelfDestructiveThread  method: android.os.HandlerThread(java.lang.String,int)  lineNumber: 109
+className:  okio.AsyncTimeout  method: okio.AsyncTimeout$Watchdog()  lineNumber: 88
+className:  com.yy.framework.DefaultThreadFactory  method: com.yy.framework.DefaultThreadFactory$1(com.yy.framework.DefaultThreadFactory,java.lang.Runnable,java.lang.String)  lineNumber: 25
+className:  com.yy.hago.thread.MainActivity  method: java.lang.Thread(java.lang.Runnable)  lineNumber: 23
+className:  com.yy.hago.thread.TestThread  method: java.lang.Thread(java.lang.Runnable)  lineNumber: 40
+className:  com.yy.hago.thread.TestThread  method: android.os.HandlerThread(java.lang.String)  lineNumber: 52
+className:  okhttp3.internal.http2.Http2Connection  method: java.lang.Thread(java.lang.Runnable)  lineNumber: 483
+className:  okhttp3.internal.Util$2  method: java.lang.Thread(java.lang.Runnable,java.lang.String)  lineNumber: 199
+------------------ java.util.concurrent.Executors ----------------
+className:  android.arch.core.executor.DefaultTaskExecutor  method: newFixedThreadPool  lineNumber: 33
+className:  android.support.v4.text.PrecomputedTextCompat  method: newFixedThreadPool  lineNumber: 653
+className:  com.yy.hago.thread.TestThread  method: newFixedThreadPool  lineNumber: 60
+
+================== end =====================
