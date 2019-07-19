@@ -7,4 +7,9 @@ import com.yy.performance.plugin.AbsBasePlugin;
  */
 
 class FindThreadPlugin extends AbsBasePlugin {
+
+    @Override
+    void doHandlerEachClass(File inputFile, String srcPath, String className, boolean isDirectory) {
+
+    }
 }
