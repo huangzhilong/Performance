@@ -38,11 +38,6 @@ performance_manager {
     enable = true
 
     contanierPlugins {
-
-        searchThread {
-            plugin = new FindThreadPlugin()
-        }
-
         replaceThread {
             plugin = new FindThreadPlugin()
         }

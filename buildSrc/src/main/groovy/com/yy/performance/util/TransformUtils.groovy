@@ -16,6 +16,9 @@ class TransformUtils {
         if (filePath == null || filePath.length() == 0 || dir == null || dir.length() == 0) {
             return null
         }
+        if (!dir.endsWith(File.separator)) {
+            dir = dir + File.separator
+        }
         String classPath = filePath.replace(dir, '').replace('.class', '')
         String className = classPath.replaceAll(File.separator, ".")
         return className

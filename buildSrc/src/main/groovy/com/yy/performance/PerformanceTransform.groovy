@@ -155,7 +155,6 @@ class PerformanceTransform extends Transform {
             //输出目录文件夹地址和输入文件夹地址
             String destPath = dest.getAbsolutePath()
             String directoryPath = directoryInput.file.getAbsolutePath()
-
             while (iterator.hasNext()) {
                 File file = iterator.next()
                 Status status = statusMap.get(file)
@@ -211,13 +210,15 @@ class PerformanceTransform extends Transform {
     }
 
     private void doTransformJar(JarInput jarInput, File dest) {
-        if (!isNeedUnzipJar(jarInput)) {
+        boolean needUnzip = isNeedUnzipJar(jarInput)
+        if (!needUnzip) {
             //不需要解压
             FileUtils.copyFile(jarInput.file, dest)
             return
         }
         String unzipTmp = "${mProject.buildDir.absolutePath}${File.separator}tmp${File.separator}" + getName()
         unzipTmp = "${unzipTmp}${File.separator}${jarInput.name.replace(':', '')}"
+
         JarZipUtils.unzipJarZip(jarInput.file.absolutePath, unzipTmp)
         //加入classPool
         JavaAssistHelper.getInstance().addClassPath(unzipTmp)
@@ -253,26 +254,30 @@ class PerformanceTransform extends Transform {
     }
 
     private void onBeforeTransform() {
-        mPluginList.each { AbsBasePlugin plugin ->
+        for (int i = 0; i < mPluginList.size(); i++) {
+            AbsBasePlugin plugin = mPluginList.get(i)
             plugin.onBeforeTransform()
         }
     }
 
     private void onFinallyTransform() {
-        mPluginList.each { AbsBasePlugin plugin ->
+        for (int i = 0; i < mPluginList.size(); i++) {
+            AbsBasePlugin plugin = mPluginList.get(i)
             plugin.onFinallyTransform()
         }
         JavaAssistHelper.getInstance().releaseClassPool()
     }
 
     private void doHandlerEachClass(File inputFile, String directoryPath, String className, boolean isDirectory) {
-        mPluginList.each { AbsBasePlugin plugin ->
+        for (int i = 0; i < mPluginList.size(); i++) {
+            AbsBasePlugin plugin = mPluginList.get(i)
             plugin.doHandlerEachClass(inputFile, directoryPath, className, isDirectory)
         }
     }
 
     private boolean isNeedUnzipJar(JarInput jarInput) {
-        mPluginList.each { AbsBasePlugin plugin ->
+        for (int i = 0; i < mPluginList.size(); i++) {
+            AbsBasePlugin plugin = mPluginList.get(i)
             if (plugin.isNeedUnzipJar(jarInput)) {
                 return true
             }
