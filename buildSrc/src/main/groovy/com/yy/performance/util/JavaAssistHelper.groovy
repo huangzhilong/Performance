@@ -65,8 +65,23 @@ class JavaAssistHelper {
         return mClassPool.getCtClass(className)
     }
 
-    ClassPool getClassPool() {
-        return mClassPool
+    /**
+     * 是否是子类
+     * @param child
+     * @param parent
+     * @return
+     */
+    boolean isSubClass(CtClass child, String parent) {
+        if (child.name == parent) {
+            return false
+        }
+        while (child != null) {
+            if (child.name == parent) {
+                return true
+            }
+            child = child.getSuperclass()
+        }
+        return false
     }
 
     /**

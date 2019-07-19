@@ -1,6 +1,7 @@
 package com.yy.performance.plugin
 
 import com.android.build.api.transform.JarInput
+import org.gradle.api.Project
 
 /**
  * Created by huangzhilong on 19/6/19
@@ -13,12 +14,15 @@ abstract class AbsBasePlugin {
     /**
      * 开始执行之前
      */
-    void onBeforeTransform() {
+    void onBeforeTransform(Project project) {
 
     }
 
     /**
-     *  修改操作每个class
+     * 遍历每个class回调
+     * <p>
+     * 会存在多线程同时调用，但多个plugin对同一个class的操作是顺序的，安全的
+     * </p>
      * @param inputFile 来源文件
      * @param srcPath 来源文件夹
      * @param className 类名
@@ -38,7 +42,7 @@ abstract class AbsBasePlugin {
     /**
      * transforms运行结束
      */
-    void onFinallyTransform() {
+    void onFinallyTransform(Project project) {
 
     }
 }

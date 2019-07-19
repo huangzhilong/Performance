@@ -87,7 +87,6 @@ class PerformanceTransform extends Transform {
         TransformOutputProvider mOutputProvider = transformInvocation.getOutputProvider()
         //此次是否是增量
         boolean isIncremental = transformInvocation.isIncremental()
-        LogUtil.log(TAG, "doTransform isIncremental: %s", isIncremental)
         onBeforeTransform()
 
         //非增量清空旧的输出内容
@@ -101,7 +100,6 @@ class PerformanceTransform extends Transform {
         mInputCollection.each { TransformInput input ->
             //遍历文件夹
             input.directoryInputs.each { DirectoryInput directoryInput ->
-                LogUtil.log(TAG, "DirectoryInput ------  %s", directoryInput.file.getPath())
                 File dest = mOutputProvider.getContentLocation(directoryInput.name, directoryInput.contentTypes,
                         directoryInput.scopes, Format.DIRECTORY)
                 //保证dest目录存在
@@ -124,7 +122,6 @@ class PerformanceTransform extends Transform {
 
             //遍历jar包
             input.jarInputs.each { JarInput jarInput ->
-                LogUtil.log(TAG, "JarInput ------  %s", jarInput.file.getPath())
                 //重命名输出文件（因为可能同名。会覆盖冲突）
                 def jarName = jarInput.name
                 def md5Name = DigestUtils.md5Hex(jarInput.file.getAbsolutePath())
@@ -249,6 +246,11 @@ class PerformanceTransform extends Transform {
     }
 
     private void onHandlerEachClass(File file, String dir, boolean isDirectory) {
+        String fileName = file.name
+        if (!fileName.endsWith(".class") || fileName.endsWith("R.class") || fileName.endsWith("BuildConfig.class")
+                || fileName.contains("R\$")) {
+            return
+        }
         String className = TransformUtils.getClassName(file.getAbsolutePath(), dir)
         doHandlerEachClass(file, dir, className, isDirectory)
     }
@@ -256,14 +258,14 @@ class PerformanceTransform extends Transform {
     private void onBeforeTransform() {
         for (int i = 0; i < mPluginList.size(); i++) {
             AbsBasePlugin plugin = mPluginList.get(i)
-            plugin.onBeforeTransform()
+            plugin.onBeforeTransform(mProject)
         }
     }
 
     private void onFinallyTransform() {
         for (int i = 0; i < mPluginList.size(); i++) {
             AbsBasePlugin plugin = mPluginList.get(i)
-            plugin.onFinallyTransform()
+            plugin.onFinallyTransform(mProject)
         }
         JavaAssistHelper.getInstance().releaseClassPool()
     }
