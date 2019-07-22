@@ -207,12 +207,13 @@ class PerformanceTransform extends Transform {
     }
 
     private void doTransformJar(JarInput jarInput, File dest) {
-        boolean needUnzip = isNeedUnzipJar(jarInput)
+        boolean needUnzip = isNeedHandlerJar(jarInput)
         if (!needUnzip) {
             //不需要解压
             FileUtils.copyFile(jarInput.file, dest)
             return
         }
+        LogUtil.log(TAG, "start doTransformJar jar: %s", jarInput.name)
         String unzipTmp = "${mProject.buildDir.absolutePath}${File.separator}tmp${File.separator}" + getName()
         unzipTmp = "${unzipTmp}${File.separator}${jarInput.name.replace(':', '')}"
 
@@ -277,10 +278,10 @@ class PerformanceTransform extends Transform {
         }
     }
 
-    private boolean isNeedUnzipJar(JarInput jarInput) {
+    private boolean isNeedHandlerJar(JarInput jarInput) {
         for (int i = 0; i < mPluginList.size(); i++) {
             AbsBasePlugin plugin = mPluginList.get(i)
-            if (plugin.isNeedUnzipJar(jarInput)) {
+            if (plugin.isNeedHandlerJar(jarInput)) {
                 return true
             }
         }

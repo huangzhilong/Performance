@@ -32,11 +32,11 @@ public class YYTaskExecutor {
                             THREAD_PRIORITY_BACKGROUND));
 
 
-    private ThreadPoolExecutor getThreadPool() {
+    public static ThreadPoolExecutor getThreadPool() {
         return sThreadPool;
     }
 
-    private ScheduledExecutorService getScheduledPool() {
+    public static ScheduledExecutorService getScheduledPool() {
         return sScheduledPool;
     }
 }

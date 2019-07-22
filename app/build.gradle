@@ -1,4 +1,5 @@
-import com.yy.performance.plugin.thread.FindThreadPlugin
+import com.yy.performance.plugin.thread.find.FindThreadPlugin
+import com.yy.performance.plugin.thread.replace.ReplaceThreadPlugin
 
 apply plugin: 'com.android.application'
 
@@ -38,8 +39,14 @@ performance_manager {
     enable = true
 
     contanierPlugins {
+        //接管线程池
         replaceThread {
-            plugin = new FindThreadPlugin()
+            plugin = new ReplaceThreadPlugin()
         }
+
+        //查找使用线程的地方
+//        findThread {
+//            plugin = new FindThreadPlugin()
+//        }
     }
 }

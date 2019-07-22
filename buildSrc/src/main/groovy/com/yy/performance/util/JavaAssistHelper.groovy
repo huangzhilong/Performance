@@ -65,6 +65,14 @@ class JavaAssistHelper {
         return mClassPool.getCtClass(className)
     }
 
+    void importClass(String className) {
+        if (mClassPool == null) {
+            LogUtil.log(TAG, "init pools first!!!!")
+            return
+        }
+        mClassPool.importPackage(className)
+    }
+
     /**
      * 是否是子类
      * @param child
