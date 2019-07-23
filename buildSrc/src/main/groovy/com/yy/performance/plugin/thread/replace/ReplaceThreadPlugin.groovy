@@ -7,9 +7,6 @@ import com.yy.performance.util.LogUtil
 import javassist.CtClass
 import javassist.expr.Expr
 
-import java.util.concurrent.ConcurrentHashMap
-
-
 /**
  * Created by huangzhilong on 19/7/22.
  */
@@ -20,10 +17,8 @@ class ReplaceThreadPlugin extends BaseThreadPlugin {
 
     private String OKHTTP_NAME = "com.squareup.okhttp"
 
-    private Map<String, List<ReplaceInfo>> mReplaceMap
 
     ReplaceThreadPlugin() {
-        mReplaceMap = new ConcurrentHashMap<>()
     }
 
     @Override
@@ -39,21 +34,35 @@ class ReplaceThreadPlugin extends BaseThreadPlugin {
 
     @Override
     void onEachResult(String key, String className, String methodName, int lineNumber, Expr expr, String dir) {
-        if (!className.contains("okhttp3")) {
+        if (!className.equals("okhttp3.ConnectionPool")) {
             return
         }
-//        LogUtil.log(TAG, "start onEachResult class: %s", className)
-//        CtClass ctClass = JavaAssistHelper.getInstance().getCtClass(className)
-//        if (ctClass == null) {
-//            return
-//        }
-//        try {
-//            //JavaAssistHelper.getInstance().importClass("com.yy.framework.YYTaskExecutor")
-//            expr.replace('$_ = null;')
+        LogUtil.log(TAG, "start onEachResult class: %s dir: %s", className, dir)
+        CtClass ctClass = JavaAssistHelper.getInstance().getCtClass(className)
+        if (ctClass == null) {
+            return
+        }
+        if (ctClass.isFrozen()) {
+            ctClass.defrost()
+        }
+        try {
+//            JavaAssistHelper.getInstance().importClass("com.yy.framework.YYTaskExecutor")
+//            expr.replace('$_ = com.yy.framework.YYTaskExecutor.getThreadPool();')
 //            ctClass.writeFile(dir)
-//        } catch (Exception e) {
-//            LogUtil.log(TAG, "onEachResult ex: %s", e)
-//        }
+
+            //获取属性方式  这样可用编译通过，但是 static field remove只是移除了定义，导致静态代码块找不到定义直接崩溃
+//            CtField field = ctClass.getDeclaredField("executor")
+//            ctClass.removeField(field)
+//            JavaAssistHelper.getInstance().importClass("com.yy.framework.YYTaskExecutor")
+//            CtField mValue = CtField.make('''public int value = com.yy.framework.YYTaskExecutor.THREAD_PRIORITY_BACKGROUND;''', ctClass)
+//            ctClass.addField(mValue)
+//
+//            CtField mValue1 = CtField.make('''public java.util.concurrent.Executor myExecutor = com.yy.framework.YYTaskExecutor.getThreadPool();''', ctClass)
+//            ctClass.addField(mValue1)
+//            ctClass.writeFile(dir)
+        } catch (Exception e) {
+            LogUtil.log(TAG, "onEachResult ex: %s", e)
+        }
         LogUtil.log(TAG, "onReplace class: %s  method: %s  line: %s", className, methodName, lineNumber)
     }
 
