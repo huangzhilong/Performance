@@ -96,14 +96,15 @@ abstract class BaseThreadPlugin extends AbsBasePlugin {
             })
         } catch (Exception e) {
 
+        } finally {
+            onEndEachClass(className, srcPath)
         }
-        onEndEachClass(className, srcPath)
     }
 
 
     private void insertFindResult(String key, String className, String methodName, int lineNumber, Expr expr,
                                   String dir) {
-        LogUtil.log(TAG, "insertFindResult key: %s  className: %s  method: %s", key, className, methodName)
+        //LogUtil.log(TAG, "insertFindResult key: %s  className: %s  method: %s", key, className, methodName)
         onEachResult(key, className, methodName, lineNumber, expr, dir)
     }
 
