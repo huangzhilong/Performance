@@ -1,11 +1,16 @@
 package com.yy.performance.plugin.thread.replace
 
+
 import com.android.build.api.transform.JarInput
+import com.android.build.api.transform.TransformInput
+import com.android.build.api.transform.TransformInvocation
 import com.yy.performance.plugin.AbsBasePlugin
+import com.yy.performance.util.JarZipUtils
 import com.yy.performance.util.JavaAssistHelper
 import com.yy.performance.util.LogUtil
 import javassist.CtClass
 import javassist.CtMethod
+import org.gradle.api.Project
 
 /**
  * Created by huangzhilong on 19/7/22.
@@ -15,18 +20,36 @@ class ReplaceThreadPlugin extends AbsBasePlugin {
 
     private final static String TAG = "ReplaceThreadPlugin"
 
-    private String OKHTTP_NAME = "com.squareup.okhttp"
+    private String FRAMEWORK_MODULE = "framework"
     private static final GLIDE_ARTIFACT = "com.github.bumptech.glide:glide"
 
     ReplaceThreadPlugin() {
     }
 
+    //需要先把YYTaskExecutor模块解压添加到pool，项目里的framework模块也会生成jar。
+    //避免处理glide等线程接管sdk时还没把YYTaskExecutor添加到pool中
+    @Override
+    void onBeforeTransform(Project project, TransformInvocation transformInvocation) {
+        Collection<TransformInput> mInputCollection = transformInvocation.getInputs()
+        mInputCollection.each { TransformInput input ->
+            //遍历jar包
+            input.jarInputs.each { JarInput jarInput ->
+                if (jarInput.name.contains(FRAMEWORK_MODULE)) {
+                    String unzipTmp = "${project.buildDir.absolutePath}${File.separator}tmp${File.separator}" + FRAMEWORK_MODULE
+                    unzipTmp = "${unzipTmp}${File.separator}${jarInput.name.replace(':', '')}"
+                    JarZipUtils.unzipJarZip(jarInput.file.absolutePath, unzipTmp)
+                    //加入classPool
+                    JavaAssistHelper.getInstance().addClassPath(unzipTmp)
+                    LogUtil.log(TAG, "onBeforeTransform add framework to pool")
+                    return
+                }
+            }
+        }
+    }
+
     @Override
     boolean isNeedHandlerJar(JarInput jarInput) {
         if (jarInput.name.startsWith(GLIDE_ARTIFACT)) {
-            return true
-        } else if (jarInput.name.contains("framework")) {
-            //对应模块也生成jar文件,需要把YYTaskExecutor模块解压添加到pool
             return true
         }
         return false
