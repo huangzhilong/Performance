@@ -44,7 +44,7 @@ performance_manager {
             plugin = new ReplaceThreadPlugin()
         }
 
-        //查找使用线程的地方
+//        查找使用线程的地方
 //        findThread {
 //            plugin = new FindThreadPlugin()
 //        }

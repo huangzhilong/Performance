@@ -87,7 +87,8 @@ class PerformanceTransform extends Transform {
         TransformOutputProvider mOutputProvider = transformInvocation.getOutputProvider()
         //此次是否是增量
         boolean isIncremental = transformInvocation.isIncremental()
-        onBeforeTransform()
+
+        onBeforeTransform(transformInvocation)
 
         //非增量清空旧的输出内容
         if (!isIncremental) {
@@ -110,14 +111,17 @@ class PerformanceTransform extends Transform {
                     FileUtils.mkdirs(dest)
                 }
                 JavaAssistHelper.getInstance().addClassPath(directoryInput.file.absolutePath)
-
-                waitableExecutor.execute(new Callable<Object>() {
-                    @Override
-                    Object call() throws Exception {
-                        handlerDirectoryInput(directoryInput, isIncremental, dest)
-                        return null
-                    }
-                })
+                if (isNeedHandlerDirectoryInput()) {
+                    waitableExecutor.execute(new Callable<Object>() {
+                        @Override
+                        Object call() throws Exception {
+                            handlerDirectoryInput(directoryInput, isIncremental, dest)
+                            return null
+                        }
+                    })
+                } else {
+                    FileUtils.copyFile(directoryInput.file, destFile)
+                }
             }
 
             //遍历jar包
@@ -223,6 +227,7 @@ class PerformanceTransform extends Transform {
         File f = new File(unzipTmp)
         eachFileToDirectory(f, unzipTmp, false)
 
+        onAfterEachJar(jarInput, unzipTmp)
         //修改完再压缩生成jar再copy到输出目录
         JarZipUtils.zipJarZip(unzipTmp, dest.absolutePath)
     }
@@ -256,10 +261,10 @@ class PerformanceTransform extends Transform {
         doHandlerEachClass(file, dir, className, isDirectory)
     }
 
-    private void onBeforeTransform() {
+    private void onBeforeTransform(TransformInvocation transformInvocation) {
         for (int i = 0; i < mPluginList.size(); i++) {
             AbsBasePlugin plugin = mPluginList.get(i)
-            plugin.onBeforeTransform(mProject)
+            plugin.onBeforeTransform(mProject, transformInvocation)
         }
     }
 
@@ -286,5 +291,22 @@ class PerformanceTransform extends Transform {
             }
         }
         return false
+    }
+
+    private boolean isNeedHandlerDirectoryInput() {
+        for (int i = 0; i < mPluginList.size(); i++) {
+            AbsBasePlugin plugin = mPluginList.get(i)
+            if (plugin.isNeedHandlerDirectoryInput()) {
+                return true
+            }
+        }
+        return false
+    }
+
+    private void onAfterEachJar(JarInput jarInput, String dir) {
+        for (int i = 0; i < mPluginList.size(); i++) {
+            AbsBasePlugin plugin = mPluginList.get(i)
+            plugin.onAfterEachJar(jarInput, dir)
+        }
     }
 }
