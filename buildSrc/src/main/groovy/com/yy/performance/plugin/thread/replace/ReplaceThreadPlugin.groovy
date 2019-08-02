@@ -58,7 +58,7 @@ class ReplaceThreadPlugin extends AbsBasePlugin {
     @Override
     void onAfterEachJar(JarInput jarInput, String dir) {
         if (jarInput.name.contains(GLIDE_ARTIFACT)) {
-            LogUtil.log(TAG, "onAfterEachJar name: %s", jarInput.name)
+            LogUtil.log(TAG, "onAfterEachJar start hook ThreadPool name: %s", jarInput.name)
             try {
                 //替换GlideExecutor里面的线程池
                 CtClass ctClass = JavaAssistHelper.getInstance().getCtClass("com.bumptech.glide.load.engine.executor.GlideExecutor")
@@ -68,7 +68,6 @@ class ReplaceThreadPlugin extends AbsBasePlugin {
                 for (int i = 0; i < mThreadPoolMethod.size(); i++) {
                     String methodName = mThreadPoolMethod.get(i)
                     CtMethod[] ctMethods = ctClass.getDeclaredMethods(methodName)
-                    LogUtil.log(TAG, "find name: %s  count: %s", methodName, ctMethods == null ? 0 : ctMethods.length)
                     for (int j = 0; j < ctMethods.length; j++) {
                         CtMethod m = ctMethods[j]
                         m.setBody(''' return new GlideExecutor(com.yy.framework.YYTaskExecutor.getThreadPool());''')

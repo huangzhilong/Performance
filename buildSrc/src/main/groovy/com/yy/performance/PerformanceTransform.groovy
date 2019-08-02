@@ -173,7 +173,7 @@ class PerformanceTransform extends Transform {
                     case Status.ADDED:
                     case Status.CHANGED:
                         //操作修改对输入file，然后copy到输出目录
-                        onHandlerEachClass(file, directoryPath, true)
+                        onHandlerEachClass(directoryInput.name, file, directoryPath, true)
                         FileUtils.copyFile(file, destFile)
                         break
                     default:
@@ -182,7 +182,7 @@ class PerformanceTransform extends Transform {
             }
         } else {
             //遍历操作每个文件再进行copy的输出目录
-            eachFileToDirectory(directoryInput.file, directoryInput.file.absolutePath, true)
+            eachFileToDirectory(directoryInput.name, directoryInput.file, directoryInput.file.absolutePath, true)
             FileUtils.copyDirectory(directoryInput.file, dest)
         }
     }
@@ -225,14 +225,14 @@ class PerformanceTransform extends Transform {
         //加入classPool
         JavaAssistHelper.getInstance().addClassPath(unzipTmp)
         File f = new File(unzipTmp)
-        eachFileToDirectory(f, unzipTmp, false)
+        eachFileToDirectory(jarInput.name, f, unzipTmp, false)
 
         onAfterEachJar(jarInput, unzipTmp)
         //修改完再压缩生成jar再copy到输出目录
         JarZipUtils.zipJarZip(unzipTmp, dest.absolutePath)
     }
 
-    private void eachFileToDirectory(File file, String dir, boolean isDirectory) {
+    private void eachFileToDirectory(String name, File file, String dir, boolean isDirectory) {
         if (file == null || !file.exists()) {
             return
         }
@@ -241,24 +241,24 @@ class PerformanceTransform extends Transform {
             for (int i = 0; i < fileList.length; i++) {
                 File subFile = fileList[i]
                 if (subFile.isDirectory()) {
-                    eachFileToDirectory(subFile, dir, isDirectory)
+                    eachFileToDirectory(name, subFile, dir, isDirectory)
                 } else {
-                    onHandlerEachClass(subFile, dir, isDirectory)
+                    onHandlerEachClass(name, subFile, dir, isDirectory)
                 }
             }
         } else {
-            onHandlerEachClass(file, dir, isDirectory)
+            onHandlerEachClass(name, file, dir, isDirectory)
         }
     }
 
-    private void onHandlerEachClass(File file, String dir, boolean isDirectory) {
+    private void onHandlerEachClass(String jarName, File file, String dir, boolean isDirectory) {
         String fileName = file.name
         if (!fileName.endsWith(".class") || fileName.endsWith("R.class") || fileName.endsWith("BuildConfig.class")
                 || fileName.contains("R\$")) {
             return
         }
         String className = TransformUtils.getClassName(file.getAbsolutePath(), dir)
-        doHandlerEachClass(file, dir, className, isDirectory)
+        doHandlerEachClass(jarName, file, dir, className, isDirectory)
     }
 
     private void onBeforeTransform(TransformInvocation transformInvocation) {
@@ -276,10 +276,11 @@ class PerformanceTransform extends Transform {
         JavaAssistHelper.getInstance().releaseClassPool()
     }
 
-    private void doHandlerEachClass(File inputFile, String directoryPath, String className, boolean isDirectory) {
+    private void doHandlerEachClass(String jarName, File inputFile, String directoryPath, String className,
+                                    boolean isDirectory) {
         for (int i = 0; i < mPluginList.size(); i++) {
             AbsBasePlugin plugin = mPluginList.get(i)
-            plugin.doHandlerEachClass(inputFile, directoryPath, className, isDirectory)
+            plugin.doHandlerEachClass(jarName, inputFile, directoryPath, className, isDirectory)
         }
     }
 

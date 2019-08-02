@@ -39,14 +39,14 @@ performance_manager {
     enable = true
 
     contanierPlugins {
-        //接管线程池
-        replaceThread {
-            plugin = new ReplaceThreadPlugin()
-        }
-
-//        查找使用线程的地方
-//        findThread {
-//            plugin = new FindThreadPlugin()
+//        //接管线程池
+//        replaceThread {
+//            plugin = new ReplaceThreadPlugin()
 //        }
+
+        查找使用线程的地方
+        findThread {
+            plugin = new FindThreadPlugin()
+        }
     }
 }

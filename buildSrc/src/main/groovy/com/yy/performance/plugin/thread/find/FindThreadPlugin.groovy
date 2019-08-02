@@ -1,5 +1,6 @@
 package com.yy.performance.plugin.thread.find
 
+import com.android.build.api.transform.JarInput
 import com.android.build.api.transform.TransformInvocation
 import com.yy.performance.plugin.AbsBasePlugin
 import com.yy.performance.util.JavaAssistHelper
@@ -41,7 +42,7 @@ class FindThreadPlugin extends AbsBasePlugin {
     }
 
     @Override
-    void doHandlerEachClass(File inputFile, String srcPath, String className, boolean isDirectory) {
+    void doHandlerEachClass(String name, File inputFile, String srcPath, String className, boolean isDirectory) {
         CtClass ctClass = JavaAssistHelper.getInstance().getCtClass(className)
         if (ctClass == null) {
             LogUtil.log(TAG, "not find className: %s", className)
@@ -55,7 +56,7 @@ class FindThreadPlugin extends AbsBasePlugin {
                     if (m.className == EXECUTORS && (m.methodName == THREAD_POOL_CACHE
                             || m.methodName == THREAD_POOL_FIXED || m.methodName == THREAD_POOL_SINGLE
                             || m.methodName == THREAD_POOL_SINGLE_SCHEDULE || m.methodName == THREAD_POOL_SCHEDULE)) {
-                        onEachResult(EXECUTORS, className, m.methodName, m.getLineNumber())
+                        onEachResult(EXECUTORS, name, className, m.methodName, m.getLineNumber())
                     }
                 }
 
@@ -72,34 +73,36 @@ class FindThreadPlugin extends AbsBasePlugin {
                 void edit(NewExpr e) throws CannotCompileException {
                     //创建线程
                     if (e.className == THREAD) {
-                        onEachResult(THREAD, className, e.constructor.longName, e.getLineNumber())
+                        onEachResult(THREAD, jarInput.name, className, e.constructor.longName, e.getLineNumber())
                     }
                     if (e.className == HANDLER_THREAD) {
-                        onEachResult(HANDLER_THREAD, className, e.constructor.longName, e.getLineNumber())
+                        onEachResult(HANDLER_THREAD, name, className, e.constructor.longName,
+                                e.getLineNumber())
                     }
                     if (e.className == TIMER) {
-                        onEachResult(TIMER, className, e.constructor.longName, e.getLineNumber())
+                        onEachResult(TIMER, name, className, e.constructor.longName, e.getLineNumber())
                     }
                     if (e.className == THREAD_POOL_EXECUTOR) {
-                        onEachResult(THREAD_POOL_EXECUTOR, className, e.constructor.longName,
+                        onEachResult(THREAD_POOL_EXECUTOR, name, className, e.constructor.longName,
                                 e.getLineNumber())
                     }
                     boolean isSubThreadPool = JavaAssistHelper.getInstance().isSubClass(e.getCtClass(), THREAD_POOL_EXECUTOR)
                     if (isSubThreadPool) {
-                        onEachResult(THREAD_POOL_EXECUTOR, className, e.constructor.longName,
+                        onEachResult(THREAD_POOL_EXECUTOR, name, className, e.constructor.longName,
                                 e.getLineNumber())
                     }
                     boolean isSubThread = JavaAssistHelper.getInstance().isSubClass(e.getCtClass(), THREAD)
                     if (isSubThread) {
-                        onEachResult(THREAD, className, e.constructor.longName, e.getLineNumber())
+                        onEachResult(THREAD, name, className, e.constructor.longName, e.getLineNumber())
                     }
                     boolean isSubHandlerThread = JavaAssistHelper.getInstance().isSubClass(e.getCtClass(), HANDLER_THREAD)
                     if (isSubHandlerThread) {
-                        onEachResult(HANDLER_THREAD, className, e.constructor.longName, e.getLineNumber())
+                        onEachResult(HANDLER_THREAD, name, className, e.constructor.longName,
+                                e.getLineNumber())
                     }
                     boolean isSubTimer = JavaAssistHelper.getInstance().isSubClass(e.getCtClass(), TIMER)
                     if (isSubTimer) {
-                        onEachResult(TIMER, className, e.constructor.longName, e.getLineNumber())
+                        onEachResult(TIMER, name, className, e.constructor.longName, e.getLineNumber())
                     }
                 }
 
@@ -114,12 +117,13 @@ class FindThreadPlugin extends AbsBasePlugin {
         }
     }
 
-    void onEachResult(String key, String className, String methodName, int lineNumber) {
+    void onEachResult(String key, String jarName, String className, String methodName, int lineNumber) {
         if (mFindMap.get(key) == null) {
             List<FindInfo> list = new ArrayList<>()
             mFindMap.put(key, list)
         }
         FindInfo info = new FindInfo()
+        info.jarName = jarName
         info.className = className
         info.methodName = methodName
         info.lineNumber = lineNumber
@@ -156,8 +160,8 @@ class FindThreadPlugin extends AbsBasePlugin {
                 str.append("\n")
                 for (int i = 0; i < infoList.size(); i++) {
                     FindInfo info = infoList.get(i)
-                    str.append("className:  " + info.className + "  method: " + info.methodName + "  lineNumber: " + info
-                            .getLineNumber())
+                    str.append("jarName: " + info.jarName + "  className:  " + info.className + "  method: " +
+                            info.methodName + "  lineNumber: " + info.getLineNumber())
                     str.append("\n")
                 }
             }

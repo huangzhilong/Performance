@@ -7,6 +7,8 @@ package com.yy.performance.plugin.thread.find
 
 class FindInfo {
 
+    String jarName
+
     String className
 
     String methodName

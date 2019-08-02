@@ -29,7 +29,7 @@ abstract class AbsBasePlugin {
      * @param className 类名
      * @param isDirectory 是否是DirectoryInput
      */
-    void doHandlerEachClass(File inputFile, String srcPath, String className, boolean isDirectory) {
+    void doHandlerEachClass(String name, File inputFile, String srcPath, String className, boolean isDirectory) {
 
     }
 
