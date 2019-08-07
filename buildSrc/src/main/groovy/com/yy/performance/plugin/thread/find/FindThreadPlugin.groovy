@@ -1,6 +1,5 @@
 package com.yy.performance.plugin.thread.find
 
-import com.android.build.api.transform.JarInput
 import com.android.build.api.transform.TransformInvocation
 import com.yy.performance.plugin.AbsBasePlugin
 import com.yy.performance.util.JavaAssistHelper
@@ -73,36 +72,36 @@ class FindThreadPlugin extends AbsBasePlugin {
                 void edit(NewExpr e) throws CannotCompileException {
                     //创建线程
                     if (e.className == THREAD) {
-                        onEachResult(THREAD, jarInput.name, className, e.constructor.longName, e.getLineNumber())
+                        onEachResult(THREAD, jarInput.name, className, e.className, e.getLineNumber())
                     }
                     if (e.className == HANDLER_THREAD) {
-                        onEachResult(HANDLER_THREAD, name, className, e.constructor.longName,
+                        onEachResult(HANDLER_THREAD, name, className, e.className,
                                 e.getLineNumber())
                     }
                     if (e.className == TIMER) {
-                        onEachResult(TIMER, name, className, e.constructor.longName, e.getLineNumber())
+                        onEachResult(TIMER, name, className, e.className, e.getLineNumber())
                     }
                     if (e.className == THREAD_POOL_EXECUTOR) {
-                        onEachResult(THREAD_POOL_EXECUTOR, name, className, e.constructor.longName,
+                        onEachResult(THREAD_POOL_EXECUTOR, name, className, e.className,
                                 e.getLineNumber())
                     }
                     boolean isSubThreadPool = JavaAssistHelper.getInstance().isSubClass(e.getCtClass(), THREAD_POOL_EXECUTOR)
                     if (isSubThreadPool) {
-                        onEachResult(THREAD_POOL_EXECUTOR, name, className, e.constructor.longName,
+                        onEachResult(THREAD_POOL_EXECUTOR, name, className, e.className,
                                 e.getLineNumber())
                     }
                     boolean isSubThread = JavaAssistHelper.getInstance().isSubClass(e.getCtClass(), THREAD)
                     if (isSubThread) {
-                        onEachResult(THREAD, name, className, e.constructor.longName, e.getLineNumber())
+                        onEachResult(THREAD, name, className, e.className, e.getLineNumber())
                     }
                     boolean isSubHandlerThread = JavaAssistHelper.getInstance().isSubClass(e.getCtClass(), HANDLER_THREAD)
                     if (isSubHandlerThread) {
-                        onEachResult(HANDLER_THREAD, name, className, e.constructor.longName,
+                        onEachResult(HANDLER_THREAD, name, className, e.className,
                                 e.getLineNumber())
                     }
                     boolean isSubTimer = JavaAssistHelper.getInstance().isSubClass(e.getCtClass(), TIMER)
                     if (isSubTimer) {
-                        onEachResult(TIMER, name, className, e.constructor.longName, e.getLineNumber())
+                        onEachResult(TIMER, name, className, e.className, e.getLineNumber())
                     }
                 }
 
@@ -156,6 +155,7 @@ class FindThreadPlugin extends AbsBasePlugin {
                 if (infoList == null || infoList.size() == 0) {
                     continue
                 }
+                str.append("\n")
                 str.append("------------------ " + key + " ----------------")
                 str.append("\n")
                 for (int i = 0; i < infoList.size(); i++) {

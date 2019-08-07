@@ -1,50 +1,55 @@
 
 ================== Search Result =====================
 
+
 ------------------ java.util.concurrent.ThreadPoolExecutor ----------------
-jarName: com.github.bumptech.glide:glide:4.9.0  className:  com.bumptech.glide.load.engine.executor.GlideExecutor  method: java.util.concurrent.ThreadPoolExecutor(int,int,long,java.util.concurrent.TimeUnit,java.util.concurrent.BlockingQueue,java.util.concurrent.ThreadFactory)  lineNumber: 122
-jarName: com.github.bumptech.glide:glide:4.9.0  className:  com.bumptech.glide.load.engine.executor.GlideExecutor  method: java.util.concurrent.ThreadPoolExecutor(int,int,long,java.util.concurrent.TimeUnit,java.util.concurrent.BlockingQueue,java.util.concurrent.ThreadFactory)  lineNumber: 187
-jarName: com.github.bumptech.glide:glide:4.9.0  className:  com.bumptech.glide.load.engine.executor.GlideExecutor  method: java.util.concurrent.ThreadPoolExecutor(int,int,long,java.util.concurrent.TimeUnit,java.util.concurrent.BlockingQueue,java.util.concurrent.ThreadFactory)  lineNumber: 212
-jarName: com.github.bumptech.glide:glide:4.9.0  className:  com.bumptech.glide.load.engine.executor.GlideExecutor  method: java.util.concurrent.ThreadPoolExecutor(int,int,long,java.util.concurrent.TimeUnit,java.util.concurrent.BlockingQueue,java.util.concurrent.ThreadFactory)  lineNumber: 248
-jarName: com.google.android.gms:play-services-ads:15.0.1  className:  com.google.android.gms.internal.ads.zzaiy  method: java.util.concurrent.ThreadPoolExecutor(int,int,long,java.util.concurrent.TimeUnit,java.util.concurrent.BlockingQueue,java.util.concurrent.ThreadFactory)  lineNumber: -1
-jarName: com.google.android.gms:play-services-ads:15.0.1  className:  com.google.android.gms.internal.ads.zzaki  method: java.util.concurrent.ThreadPoolExecutor(int,int,long,java.util.concurrent.TimeUnit,java.util.concurrent.BlockingQueue,java.util.concurrent.ThreadFactory)  lineNumber: -1
-jarName: com.google.android.gms:play-services-ads:15.0.1  className:  com.google.android.gms.internal.ads.zzaki  method: java.util.concurrent.ThreadPoolExecutor(int,int,long,java.util.concurrent.TimeUnit,java.util.concurrent.BlockingQueue,java.util.concurrent.ThreadFactory)  lineNumber: -1
-jarName: com.android.support:loader:28.0.0  className:  android.support.v4.content.ModernAsyncTask  method: java.util.concurrent.ThreadPoolExecutor(int,int,long,java.util.concurrent.TimeUnit,java.util.concurrent.BlockingQueue,java.util.concurrent.ThreadFactory)  lineNumber: 75
-jarName: com.github.bumptech.glide:disklrucache:4.9.0  className:  com.bumptech.glide.disklrucache.DiskLruCache  method: java.util.concurrent.ThreadPoolExecutor(int,int,long,java.util.concurrent.TimeUnit,java.util.concurrent.BlockingQueue,java.util.concurrent.ThreadFactory)  lineNumber: 159
-jarName: com.squareup.okhttp3:okhttp:3.8.1  className:  okhttp3.ConnectionPool  method: java.util.concurrent.ThreadPoolExecutor(int,int,long,java.util.concurrent.TimeUnit,java.util.concurrent.BlockingQueue,java.util.concurrent.ThreadFactory)  lineNumber: 52
-jarName: com.squareup.okhttp3:okhttp:3.8.1  className:  okhttp3.Dispatcher  method: java.util.concurrent.ThreadPoolExecutor(int,int,long,java.util.concurrent.TimeUnit,java.util.concurrent.BlockingQueue,java.util.concurrent.ThreadFactory)  lineNumber: 66
-jarName: com.squareup.okhttp3:okhttp:3.8.1  className:  okhttp3.internal.cache.DiskLruCache  method: java.util.concurrent.ThreadPoolExecutor(int,int,long,java.util.concurrent.TimeUnit,java.util.concurrent.BlockingQueue,java.util.concurrent.ThreadFactory)  lineNumber: 270
-jarName: :framework  className:  com.yy.framework.YYTaskExecutor  method: java.util.concurrent.ThreadPoolExecutor(int,int,long,java.util.concurrent.TimeUnit,java.util.concurrent.BlockingQueue,java.util.concurrent.ThreadFactory)  lineNumber: 24
-jarName: :framework  className:  com.yy.framework.YYTaskExecutor  method: java.util.concurrent.ScheduledThreadPoolExecutor(int,java.util.concurrent.ThreadFactory)  lineNumber: 30
-jarName: com.squareup.okhttp3:okhttp:3.8.1  className:  okhttp3.internal.http2.Http2Connection  method: java.util.concurrent.ThreadPoolExecutor(int,int,long,java.util.concurrent.TimeUnit,java.util.concurrent.BlockingQueue,java.util.concurrent.ThreadFactory)  lineNumber: 150
-jarName: c364d7c10e41798c39ae68df0a1dc31d41c535cb  className:  com.yy.hago.thread.MainActivity  method: java.util.concurrent.ScheduledThreadPoolExecutor(int,java.util.concurrent.ThreadFactory)  lineNumber: 33
-jarName: c364d7c10e41798c39ae68df0a1dc31d41c535cb  className:  com.yy.hago.thread.TestThread  method: java.util.concurrent.ThreadPoolExecutor(int,int,long,java.util.concurrent.TimeUnit,java.util.concurrent.BlockingQueue,java.util.concurrent.ThreadFactory)  lineNumber: 32
-jarName: com.squareup.okhttp3:okhttp:3.8.1  className:  okhttp3.internal.ws.RealWebSocket  method: java.util.concurrent.ScheduledThreadPoolExecutor(int,java.util.concurrent.ThreadFactory)  lineNumber: 245
+jarName: com.github.bumptech.glide:glide:4.9.0  className:  com.bumptech.glide.load.engine.executor.GlideExecutor  method: java.util.concurrent.ThreadPoolExecutor  lineNumber: 122
+jarName: com.github.bumptech.glide:glide:4.9.0  className:  com.bumptech.glide.load.engine.executor.GlideExecutor  method: java.util.concurrent.ThreadPoolExecutor  lineNumber: 187
+jarName: com.github.bumptech.glide:glide:4.9.0  className:  com.bumptech.glide.load.engine.executor.GlideExecutor  method: java.util.concurrent.ThreadPoolExecutor  lineNumber: 212
+jarName: com.github.bumptech.glide:glide:4.9.0  className:  com.bumptech.glide.load.engine.executor.GlideExecutor  method: java.util.concurrent.ThreadPoolExecutor  lineNumber: 248
+jarName: com.google.android.gms:play-services-ads:15.0.1  className:  com.google.android.gms.internal.ads.zzaiy  method: java.util.concurrent.ThreadPoolExecutor  lineNumber: -1
+jarName: com.google.android.gms:play-services-ads:15.0.1  className:  com.google.android.gms.internal.ads.zzaki  method: java.util.concurrent.ThreadPoolExecutor  lineNumber: -1
+jarName: com.google.android.gms:play-services-ads:15.0.1  className:  com.google.android.gms.internal.ads.zzaki  method: java.util.concurrent.ThreadPoolExecutor  lineNumber: -1
+jarName: com.android.support:loader:28.0.0  className:  android.support.v4.content.ModernAsyncTask  method: java.util.concurrent.ThreadPoolExecutor  lineNumber: 75
+jarName: com.github.bumptech.glide:disklrucache:4.9.0  className:  com.bumptech.glide.disklrucache.DiskLruCache  method: java.util.concurrent.ThreadPoolExecutor  lineNumber: 159
+jarName: com.squareup.okhttp3:okhttp:3.8.1  className:  okhttp3.ConnectionPool  method: java.util.concurrent.ThreadPoolExecutor  lineNumber: 52
+jarName: com.squareup.okhttp3:okhttp:3.8.1  className:  okhttp3.Dispatcher  method: java.util.concurrent.ThreadPoolExecutor  lineNumber: 66
+jarName: com.squareup.okhttp3:okhttp:3.8.1  className:  okhttp3.internal.cache.DiskLruCache  method: java.util.concurrent.ThreadPoolExecutor  lineNumber: 270
+jarName: com.squareup.okhttp3:okhttp:3.8.1  className:  okhttp3.internal.http2.Http2Connection  method: java.util.concurrent.ThreadPoolExecutor  lineNumber: 150
+jarName: :framework  className:  com.yy.framework.YYTaskExecutor  method: java.util.concurrent.ThreadPoolExecutor  lineNumber: 24
+jarName: :framework  className:  com.yy.framework.YYTaskExecutor  method: java.util.concurrent.ScheduledThreadPoolExecutor  lineNumber: 30
+jarName: c364d7c10e41798c39ae68df0a1dc31d41c535cb  className:  com.yy.hago.thread.MainActivity  method: java.util.concurrent.ScheduledThreadPoolExecutor  lineNumber: 40
+jarName: c364d7c10e41798c39ae68df0a1dc31d41c535cb  className:  com.yy.hago.thread.TestThread  method: java.util.concurrent.ThreadPoolExecutor  lineNumber: 32
+jarName: com.squareup.okhttp3:okhttp:3.8.1  className:  okhttp3.internal.ws.RealWebSocket  method: java.util.concurrent.ScheduledThreadPoolExecutor  lineNumber: 245
+
 ------------------ android.os.HandlerThread ----------------
-jarName: com.google.android.gms:play-services-gass:15.0.1  className:  com.google.android.gms.internal.ads.zzatr  method: android.os.HandlerThread(java.lang.String)  lineNumber: -1
-jarName: com.google.android.gms:play-services-ads:15.0.1  className:  com.google.android.gms.internal.ads.zzamg  method: android.os.HandlerThread(java.lang.String)  lineNumber: -1
-jarName: com.google.android.gms:play-services-ads:15.0.1  className:  com.google.android.gms.internal.ads.zzapr  method: android.os.HandlerThread(java.lang.String)  lineNumber: -1
-jarName: com.android.support:support-compat:28.0.0  className:  android.support.v4.app.FrameMetricsAggregator$FrameMetricsApi24Impl  method: android.os.HandlerThread(java.lang.String)  lineNumber: 415
-jarName: com.android.support:support-compat:28.0.0  className:  android.support.v4.app.NotificationManagerCompat$SideChannelManager  method: android.os.HandlerThread(java.lang.String)  lineNumber: 324
-jarName: com.android.support:support-compat:28.0.0  className:  android.support.v4.provider.SelfDestructiveThread  method: android.os.HandlerThread(java.lang.String,int)  lineNumber: 109
+jarName: com.google.android.gms:play-services-gass:15.0.1  className:  com.google.android.gms.internal.ads.zzatr  method: android.os.HandlerThread  lineNumber: -1
+jarName: com.google.android.gms:play-services-ads:15.0.1  className:  com.google.android.gms.internal.ads.zzamg  method: android.os.HandlerThread  lineNumber: -1
+jarName: com.google.android.gms:play-services-ads:15.0.1  className:  com.google.android.gms.internal.ads.zzapr  method: android.os.HandlerThread  lineNumber: -1
+jarName: com.android.support:support-compat:28.0.0  className:  android.support.v4.app.FrameMetricsAggregator$FrameMetricsApi24Impl  method: android.os.HandlerThread  lineNumber: 415
+jarName: com.android.support:support-compat:28.0.0  className:  android.support.v4.app.NotificationManagerCompat$SideChannelManager  method: android.os.HandlerThread  lineNumber: 324
+jarName: com.android.support:support-compat:28.0.0  className:  android.support.v4.provider.SelfDestructiveThread  method: android.os.HandlerThread  lineNumber: 109
+
 ------------------ java.lang.Thread ----------------
-jarName: com.github.bumptech.glide:glide:4.9.0  className:  com.bumptech.glide.load.engine.executor.GlideExecutor$DefaultThreadFactory  method: com.bumptech.glide.load.engine.executor.GlideExecutor$DefaultThreadFactory$1(com.bumptech.glide.load.engine.executor.GlideExecutor$DefaultThreadFactory,java.lang.Runnable,java.lang.String)  lineNumber: 433
-jarName: com.google.android.gms:play-services-ads-identifier:15.0.1  className:  com.google.android.gms.ads.identifier.AdvertisingIdClient  method: com.google.android.gms.ads.identifier.AdvertisingIdClient$zza(com.google.android.gms.ads.identifier.AdvertisingIdClient,long)  lineNumber: -1
-jarName: com.google.android.gms:play-services-gass:15.0.1  className:  com.google.android.gms.internal.ads.zzatr  method: android.os.HandlerThread(java.lang.String)  lineNumber: -1
-jarName: com.google.android.gms:play-services-ads:15.0.1  className:  com.google.android.gms.internal.ads.zzajm  method: com.google.android.gms.internal.ads.zzgk(com.google.android.gms.internal.ads.zzgf,com.google.android.gms.internal.ads.zzadf)  lineNumber: -1
-jarName: com.google.android.gms:play-services-ads-lite:15.0.1  className:  com.google.android.gms.internal.ads.zzamv  method: com.google.android.gms.internal.ads.zzamw(com.google.android.gms.internal.ads.zzamv,java.lang.String)  lineNumber: -1
-jarName: com.google.android.gms:play-services-ads:15.0.1  className:  com.google.android.gms.internal.ads.zzamg  method: android.os.HandlerThread(java.lang.String)  lineNumber: -1
-jarName: com.google.android.gms:play-services-ads:15.0.1  className:  com.google.android.gms.internal.ads.zzaov  method: com.google.android.gms.internal.ads.zzapu(android.content.Context)  lineNumber: -1
-jarName: com.google.android.gms:play-services-ads:15.0.1  className:  com.google.android.gms.internal.ads.zzapr  method: android.os.HandlerThread(java.lang.String)  lineNumber: -1
-jarName: com.google.android.gms:play-services-ads:15.0.1  className:  com.google.android.gms.internal.ads.zzv  method: com.google.android.gms.internal.ads.zzd(java.util.concurrent.BlockingQueue,java.util.concurrent.BlockingQueue,com.google.android.gms.internal.ads.zzb,com.google.android.gms.internal.ads.zzaa)  lineNumber: -1
-jarName: com.google.android.gms:play-services-ads:15.0.1  className:  com.google.android.gms.internal.ads.zzv  method: com.google.android.gms.internal.ads.zzn(java.util.concurrent.BlockingQueue,com.google.android.gms.internal.ads.zzm,com.google.android.gms.internal.ads.zzb,com.google.android.gms.internal.ads.zzaa)  lineNumber: -1
-jarName: com.android.support:support-compat:28.0.0  className:  android.support.v4.app.FrameMetricsAggregator$FrameMetricsApi24Impl  method: android.os.HandlerThread(java.lang.String)  lineNumber: 415
-jarName: com.android.support:support-compat:28.0.0  className:  android.support.v4.app.NotificationManagerCompat$SideChannelManager  method: android.os.HandlerThread(java.lang.String)  lineNumber: 324
-jarName: com.android.support:support-compat:28.0.0  className:  android.support.v4.provider.SelfDestructiveThread  method: android.os.HandlerThread(java.lang.String,int)  lineNumber: 109
-jarName: com.squareup.okio:okio:1.13.0  className:  okio.AsyncTimeout  method: okio.AsyncTimeout$Watchdog()  lineNumber: 88
-jarName: :framework  className:  com.yy.framework.DefaultThreadFactory  method: com.yy.framework.DefaultThreadFactory$1(com.yy.framework.DefaultThreadFactory,java.lang.Runnable,java.lang.String)  lineNumber: 25
+jarName: com.github.bumptech.glide:glide:4.9.0  className:  com.bumptech.glide.load.engine.executor.GlideExecutor$DefaultThreadFactory  method: com.bumptech.glide.load.engine.executor.GlideExecutor$DefaultThreadFactory$1  lineNumber: 433
+jarName: com.google.android.gms:play-services-ads-identifier:15.0.1  className:  com.google.android.gms.ads.identifier.AdvertisingIdClient  method: com.google.android.gms.ads.identifier.AdvertisingIdClient$zza  lineNumber: -1
+jarName: com.google.android.gms:play-services-gass:15.0.1  className:  com.google.android.gms.internal.ads.zzatr  method: android.os.HandlerThread  lineNumber: -1
+jarName: com.google.android.gms:play-services-ads-lite:15.0.1  className:  com.google.android.gms.internal.ads.zzamv  method: com.google.android.gms.internal.ads.zzamw  lineNumber: -1
+jarName: com.google.android.gms:play-services-ads:15.0.1  className:  com.google.android.gms.internal.ads.zzajm  method: com.google.android.gms.internal.ads.zzgk  lineNumber: -1
+jarName: com.google.android.gms:play-services-ads:15.0.1  className:  com.google.android.gms.internal.ads.zzamg  method: android.os.HandlerThread  lineNumber: -1
+jarName: com.google.android.gms:play-services-ads:15.0.1  className:  com.google.android.gms.internal.ads.zzaov  method: com.google.android.gms.internal.ads.zzapu  lineNumber: -1
+jarName: com.google.android.gms:play-services-ads:15.0.1  className:  com.google.android.gms.internal.ads.zzapr  method: android.os.HandlerThread  lineNumber: -1
+jarName: com.google.android.gms:play-services-ads:15.0.1  className:  com.google.android.gms.internal.ads.zzv  method: com.google.android.gms.internal.ads.zzd  lineNumber: -1
+jarName: com.google.android.gms:play-services-ads:15.0.1  className:  com.google.android.gms.internal.ads.zzv  method: com.google.android.gms.internal.ads.zzn  lineNumber: -1
+jarName: com.android.support:support-compat:28.0.0  className:  android.support.v4.app.FrameMetricsAggregator$FrameMetricsApi24Impl  method: android.os.HandlerThread  lineNumber: 415
+jarName: com.android.support:support-compat:28.0.0  className:  android.support.v4.app.NotificationManagerCompat$SideChannelManager  method: android.os.HandlerThread  lineNumber: 324
+jarName: com.android.support:support-compat:28.0.0  className:  android.support.v4.provider.SelfDestructiveThread  method: android.os.HandlerThread  lineNumber: 109
+jarName: com.squareup.okio:okio:1.13.0  className:  okio.AsyncTimeout  method: okio.AsyncTimeout$Watchdog  lineNumber: 88
+jarName: :framework  className:  com.yy.framework.DefaultThreadFactory  method: com.yy.framework.DefaultThreadFactory$1  lineNumber: 25
+
 ------------------ java.util.Timer ----------------
-jarName: com.google.android.gms:play-services-ads:15.0.1  className:  com.google.android.gms.ads.internal.zza  method: java.util.Timer()  lineNumber: -1
+jarName: com.google.android.gms:play-services-ads:15.0.1  className:  com.google.android.gms.ads.internal.zza  method: java.util.Timer  lineNumber: -1
+
 ------------------ java.util.concurrent.Executors ----------------
 jarName: com.github.bumptech.glide:glide:4.9.0  className:  com.bumptech.glide.load.engine.ActiveResources  method: newSingleThreadExecutor  lineNumber: 36
 jarName: com.google.android.gms:play-services-ads-lite:15.0.1  className:  com.google.android.gms.internal.ads.zzadb  method: newCachedThreadPool  lineNumber: -1
