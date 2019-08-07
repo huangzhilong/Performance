@@ -12,11 +12,13 @@ import org.gradle.api.Project
 
 abstract class AbsBasePlugin {
 
+    protected Project mProject
+
     /**
      * 开始执行之前
      */
     void onBeforeTransform(Project project, TransformInvocation transformInvocation) {
-
+        mProject = project
     }
 
     /**

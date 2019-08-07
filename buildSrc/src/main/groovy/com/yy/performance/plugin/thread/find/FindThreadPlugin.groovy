@@ -40,6 +40,7 @@ class FindThreadPlugin extends AbsBasePlugin {
 
     @Override
     void onBeforeTransform(Project project, TransformInvocation transformInvocation) {
+        super.onBeforeTransform(project, transformInvocation)
         mFindMap = new ConcurrentHashMap<>()
         //需要把所有class添加到pool里，避免查找ThreadPoolExecutor的子类找不到class失败
         Collection<TransformInput> mInputCollection = transformInvocation.getInputs()

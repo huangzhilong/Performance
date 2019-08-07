@@ -5,7 +5,6 @@ import com.android.build.api.transform.JarInput
 import com.android.build.api.transform.TransformInput
 import com.android.build.api.transform.TransformInvocation
 import com.yy.performance.plugin.AbsBasePlugin
-import com.yy.performance.util.JarZipUtils
 import com.yy.performance.util.JavaAssistHelper
 import com.yy.performance.util.LogUtil
 import javassist.CannotCompileException
@@ -35,19 +34,15 @@ class ReplaceThreadPlugin extends AbsBasePlugin {
     //避免处理glide等线程接管sdk时还没把YYTaskExecutor添加到pool中
     @Override
     void onBeforeTransform(Project project, TransformInvocation transformInvocation) {
+        super.onBeforeTransform(project, transformInvocation)
         Collection<TransformInput> mInputCollection = transformInvocation.getInputs()
         mInputCollection.each { TransformInput input ->
+
             //遍历jar包
             input.jarInputs.each { JarInput jarInput ->
                 if (jarInput.name.contains(FRAMEWORK_MODULE)) {
-                    String unzipTmp = "${project.buildDir.absolutePath}${File.separator}tmp${File.separator}" + FRAMEWORK_MODULE
-                    unzipTmp = "${unzipTmp}${File.separator}${jarInput.name.replace(':', '')}"
-                    JarZipUtils.unzipJarZip(jarInput.file.absolutePath, unzipTmp)
-                    //加入classPool
-                    JavaAssistHelper.getInstance().addClassPath(unzipTmp)
+                    JavaAssistHelper.getInstance().addClassPath(jarInput.file.absolutePath)
                     JavaAssistHelper.getInstance().importClass("com.yy.framework.YYTaskExecutor")
-                    LogUtil.log(TAG, "onBeforeTransform add framework to pool")
-                    return
                 }
             }
         }
