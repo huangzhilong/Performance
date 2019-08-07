@@ -1,5 +1,8 @@
 package com.yy.performance.plugin.thread.find
 
+import com.android.build.api.transform.DirectoryInput
+import com.android.build.api.transform.JarInput
+import com.android.build.api.transform.TransformInput
 import com.android.build.api.transform.TransformInvocation
 import com.yy.performance.plugin.AbsBasePlugin
 import com.yy.performance.util.JavaAssistHelper
@@ -38,16 +41,35 @@ class FindThreadPlugin extends AbsBasePlugin {
     @Override
     void onBeforeTransform(Project project, TransformInvocation transformInvocation) {
         mFindMap = new ConcurrentHashMap<>()
+        //需要把所有class添加到pool里，避免查找ThreadPoolExecutor的子类找不到class失败
+        Collection<TransformInput> mInputCollection = transformInvocation.getInputs()
+        mInputCollection.each { TransformInput input ->
+            //遍历文件夹
+            input.directoryInputs.each { DirectoryInput directoryInput ->
+                JavaAssistHelper.getInstance().addClassPath(directoryInput.file.absolutePath)
+            }
+
+            //遍历jar包
+            input.jarInputs.each { JarInput jarInput ->
+                JavaAssistHelper.getInstance().addClassPath(jarInput.file.absolutePath)
+            }
+        }
+    }
+
+
+    @Override
+    boolean isNeedHandlerJar(JarInput jarInput) {
+        return true
     }
 
     @Override
     void doHandlerEachClass(String name, File inputFile, String srcPath, String className, boolean isDirectory) {
-        CtClass ctClass = JavaAssistHelper.getInstance().getCtClass(className)
-        if (ctClass == null) {
-            LogUtil.log(TAG, "not find className: %s", className)
-        }
         // 通过下面的方法可以把类中所有方法调用属性等都获得到（包括调用其他类的方法和属性）
         try {
+            CtClass ctClass = JavaAssistHelper.getInstance().getCtClass(className)
+            if (ctClass == null) {
+                return
+            }
             ctClass.instrument(new ExprEditor() {
                 //所有方法调用回调(包括调用其他类的方法）
                 @Override
@@ -70,34 +92,39 @@ class FindThreadPlugin extends AbsBasePlugin {
                 //对象创建回调
                 @Override
                 void edit(NewExpr e) throws CannotCompileException {
+
                     //创建线程
                     if (e.className == THREAD) {
-                        onEachResult(THREAD, jarInput.name, className, e.className, e.getLineNumber())
+                        onEachResult(THREAD, name, className, e.className, e.getLineNumber())
+                        return
                     }
                     if (e.className == HANDLER_THREAD) {
-                        onEachResult(HANDLER_THREAD, name, className, e.className,
-                                e.getLineNumber())
+                        onEachResult(HANDLER_THREAD, name, className, e.className, e.getLineNumber())
+                        return
                     }
                     if (e.className == TIMER) {
                         onEachResult(TIMER, name, className, e.className, e.getLineNumber())
+                        return
                     }
                     if (e.className == THREAD_POOL_EXECUTOR) {
-                        onEachResult(THREAD_POOL_EXECUTOR, name, className, e.className,
-                                e.getLineNumber())
+                        onEachResult(THREAD_POOL_EXECUTOR, name, className, e.className, e.getLineNumber())
+                        return
                     }
+
                     boolean isSubThreadPool = JavaAssistHelper.getInstance().isSubClass(e.getCtClass(), THREAD_POOL_EXECUTOR)
                     if (isSubThreadPool) {
-                        onEachResult(THREAD_POOL_EXECUTOR, name, className, e.className,
-                                e.getLineNumber())
+                        onEachResult(THREAD_POOL_EXECUTOR, name, className, e.className, e.getLineNumber())
+                        return
                     }
                     boolean isSubThread = JavaAssistHelper.getInstance().isSubClass(e.getCtClass(), THREAD)
                     if (isSubThread) {
                         onEachResult(THREAD, name, className, e.className, e.getLineNumber())
+                        return
                     }
                     boolean isSubHandlerThread = JavaAssistHelper.getInstance().isSubClass(e.getCtClass(), HANDLER_THREAD)
                     if (isSubHandlerThread) {
-                        onEachResult(HANDLER_THREAD, name, className, e.className,
-                                e.getLineNumber())
+                        onEachResult(HANDLER_THREAD, name, className, e.className, e.getLineNumber())
+                        return
                     }
                     boolean isSubTimer = JavaAssistHelper.getInstance().isSubClass(e.getCtClass(), TIMER)
                     if (isSubTimer) {
@@ -112,7 +139,7 @@ class FindThreadPlugin extends AbsBasePlugin {
                 }
             })
         } catch (Exception e) {
-
+            LogUtil.log(TAG, "doHandlerEachClass ex: %s", e)
         }
     }
 
@@ -146,7 +173,7 @@ class FindThreadPlugin extends AbsBasePlugin {
             str.append("not find use Thread!!!!!!")
             resultFile.write(str.toString())
         } else {
-            str.append("\n================== Search Result =====================\n\n")
+            str.append("\n================== Search Result =====================\n")
 
             Iterator<String> keyIterator = mFindMap.keySet().iterator()
             while (keyIterator.hasNext()) {

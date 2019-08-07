@@ -3,7 +3,9 @@ package com.yy.performance.util
 import javassist.ClassPath
 import javassist.ClassPool
 import javassist.CtClass
-import org.gradle.api.Project;
+import org.gradle.api.Project
+
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Created by huangzhilong on 19/7/18.
@@ -27,7 +29,7 @@ class JavaAssistHelper {
     }
 
     private ClassPool mClassPool
-    private List<ClassPath> mClassPathList
+    private Map<String, ClassPath> mPathMap
 
     /**
      * 初始化classPool
@@ -36,13 +38,13 @@ class JavaAssistHelper {
     void initPool(Project project) {
         LogUtil.log(TAG, "initPool")
         mClassPool = new ClassPool(false)
-        mClassPathList = new ArrayList<>()
+        mPathMap = new ConcurrentHashMap<>()
         //添加系统类
         ClassPath sysPath = mClassPool.appendSystemPath()
-        mClassPathList.add(sysPath)
+        mPathMap.put('system', sysPath)
         //添加android对应类，这样才能扫到android包底下的类
         ClassPath androidPath = mClassPool.appendClassPath(project.android.bootClasspath[0].toString())
-        mClassPathList.add(androidPath)
+        mPathMap.put('android', androidPath)
     }
 
     void addClassPath(String path) {
@@ -50,8 +52,11 @@ class JavaAssistHelper {
             LogUtil.log(TAG, "init pools first!!!!")
             return
         }
+        if (mPathMap.containsKey(path)) {
+            return
+        }
         ClassPath classPath = mClassPool.appendClassPath(path)
-        mClassPathList.add(classPath)
+        mPathMap.put(path, classPath)
     }
 
     CtClass getCtClass(String className) {
@@ -99,8 +104,14 @@ class JavaAssistHelper {
         if (mClassPool == null) {
             return
         }
-        mClassPathList.each { ClassPath path ->
-            mClassPool.removeClassPath(path)
+        if (mPathMap.size() > 0) {
+            Iterator<String> iterator = mPathMap.keySet().iterator()
+            while (iterator.hasNext()) {
+                String key = iterator.next()
+                ClassPath path = mPathMap.get(key)
+                mClassPool.removeClassPath(path)
+            }
+            mPathMap.clear()
         }
         mClassPool.clearImportedPackages()
     }

@@ -132,6 +132,8 @@ class PerformanceTransform extends Transform {
                 if (jarName.endsWith(".jar")) {
                     jarName = jarName.substring(0, jarName.length() - 4)
                 }
+                JavaAssistHelper.getInstance().addClassPath(jarInput.file.absolutePath)
+
                 //获取output
                 def dest = mOutputProvider.getContentLocation(jarName + md5Name, jarInput.contentTypes,
                         jarInput.scopes, Format.JAR)
@@ -222,8 +224,6 @@ class PerformanceTransform extends Transform {
         unzipTmp = "${unzipTmp}${File.separator}${jarInput.name.replace(':', '')}"
 
         JarZipUtils.unzipJarZip(jarInput.file.absolutePath, unzipTmp)
-        //加入classPool
-        JavaAssistHelper.getInstance().addClassPath(unzipTmp)
         File f = new File(unzipTmp)
         eachFileToDirectory(jarInput.name, f, unzipTmp, false)
 
